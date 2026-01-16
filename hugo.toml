@@ -1,13 +1,13 @@
 baseURL = "https://t1elx.github.io/"
 languageCode = "ru"
-title = "Pentest Notes"
+title = "T1elx blog"
 theme = "terminal"
 [pagination]
   pagerSize = 5
 
 [params]
   # Цвета: orange, blue, red, green, pink
-  themeColor = "green"
+  themeColor = "blue"
   contentTypeName = "posts"
   showMenuItems = 3
   fullWidthTheme = false
