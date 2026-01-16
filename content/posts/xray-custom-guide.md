@@ -41,9 +41,6 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 &nbsp;
 # Шаг 3: Патчим Xray
 
-
-Применяем через Патч:
-
 1. Создай файл патча
 
 ```bash
