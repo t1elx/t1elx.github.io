@@ -93,6 +93,8 @@ systemctl stop x-ui
 ```bash
 /usr/local/x-ui/bin/xray-linux-amd64 -c /usr/local/x-ui/bin/config.json
 ```
+После этого подключись к VPN и открой пару сайтов.
+
 Когда убедишься, что логи идут, нажми Ctrl + C и верни сервис в работу:
 ```bash
 systemctl start x-ui 
