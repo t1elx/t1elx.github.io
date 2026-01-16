@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content=" Примечание: Эта страница скрыта из общего списка и доступна только по прямой ссылке.
 Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
-bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Замена файла прошивки Открой файл через nano и замени содержимое:
-nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в telegram: @t1elx
+bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Замена файла прошивки Применяем через Патч:
+Создаем пустой файл nano ~/xray_custom.patch Вставь текст патча (из блока ниже) в редактор: --- /root/freedom.go.orig 2026-01-16 21:59:02.651689232 &#43;0300 &#43;&#43;&#43; /root/xray-src/proxy/freedom/freedom.go 2026-01-16 12:53:46.318155697 &#43;0300 @@ -5,6 &#43;5,7 @@ &#34;crypto/rand&#34; &#34;io&#34; &#34;time&#34; &#43; &#34;fmt&#34; &#34;github.com/pires/go-proxyproto&#34; &#34;github.com/xtls/xray-core/common&#34; @@ -85,8 &#43;86,20 @@ ob.Name = &#34;freedom&#34; ob.CanSpliceCopy = 1 inbound := session.InboundFromContext(ctx) - destination := ob.Target &#43; &#43; myJitter := dice.Roll(40) &#43; 10 &#43; fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter) &#43; time.Sleep(time.Duration(myJitter) * time.Millisecond) &#43; &#43; myLife := time.Duration(dice.Roll(540)&#43;180) * time.Second &#43; fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife) &#43; &#43; sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife) &#43; defer sessionCancel() &#43; ctx = sessionCtx origTargetAddr := ob.OriginalTarget.Address if origTargetAddr == nil { origTargetAddr = ob.Target.Address @@ -165,7 &#43;178,8 @@ } plcy := h.policy() - ctx, cancel := context.WithCancel(ctx) &#43; var cancel context.CancelFunc &#43; ctx, cancel = context.WithCancel(ctx) timer := signal.CancelAfterInactivity(ctx, func() { cancel() if newCancel != nil { Сохрани: Ctrl&#43;O, Enter, затем Ctrl&#43;X
 " />
 <meta name="keywords" content="" />
 
@@ -79,8 +79,8 @@ nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в
 <meta property="og:title" content="Инструкция по развертыванию Custom Xray">
 <meta property="og:description" content=" Примечание: Эта страница скрыта из общего списка и доступна только по прямой ссылке.
 Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
-bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Замена файла прошивки Открой файл через nano и замени содержимое:
-nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в telegram: @t1elx
+bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Замена файла прошивки Применяем через Патч:
+Создаем пустой файл nano ~/xray_custom.patch Вставь текст патча (из блока ниже) в редактор: --- /root/freedom.go.orig 2026-01-16 21:59:02.651689232 &#43;0300 &#43;&#43;&#43; /root/xray-src/proxy/freedom/freedom.go 2026-01-16 12:53:46.318155697 &#43;0300 @@ -5,6 &#43;5,7 @@ &#34;crypto/rand&#34; &#34;io&#34; &#34;time&#34; &#43; &#34;fmt&#34; &#34;github.com/pires/go-proxyproto&#34; &#34;github.com/xtls/xray-core/common&#34; @@ -85,8 &#43;86,20 @@ ob.Name = &#34;freedom&#34; ob.CanSpliceCopy = 1 inbound := session.InboundFromContext(ctx) - destination := ob.Target &#43; &#43; myJitter := dice.Roll(40) &#43; 10 &#43; fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter) &#43; time.Sleep(time.Duration(myJitter) * time.Millisecond) &#43; &#43; myLife := time.Duration(dice.Roll(540)&#43;180) * time.Second &#43; fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife) &#43; &#43; sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife) &#43; defer sessionCancel() &#43; ctx = sessionCtx origTargetAddr := ob.OriginalTarget.Address if origTargetAddr == nil { origTargetAddr = ob.Target.Address @@ -165,7 &#43;178,8 @@ } plcy := h.policy() - ctx, cancel := context.WithCancel(ctx) &#43; var cancel context.CancelFunc &#43; ctx, cancel = context.WithCancel(ctx) timer := signal.CancelAfterInactivity(ctx, func() { cancel() if newCancel != nil { Сохрани: Ctrl&#43;O, Enter, затем Ctrl&#43;X
 " />
 <meta property="og:url" content="http://localhost:1313/posts/xray-custom-guide/" />
 <meta property="og:site_name" content="T1elx blog" />
@@ -193,12 +193,68 @@ nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://github.com/XTLS/Xray-core.git xray-src
 </span></span></code></pre></div><p> </p>
 <h1 id="шаг-3-замена-файла-прошивки">Шаг 3: Замена файла прошивки<a href="#шаг-3-замена-файла-прошивки" class="hanchor" ariaLabel="Anchor">#</a> </h1>
-<p>Открой файл через <code>nano</code> и замени содержимое:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano /root/xray-src/proxy/freedom/freedom.go
-</span></span></code></pre></div><blockquote>
-<p>За файлом стучись в telegram: @t1elx</p>
-</blockquote>
-<p> </p>
+<p>Применяем через Патч:</p>
+<ol>
+<li>Создаем пустой файл</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano ~/xray_custom.patch
+</span></span></code></pre></div><ol start="2">
+<li>Вставь текст патча (из блока ниже) в редактор:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--- /root/freedom.go.orig       2026-01-16 21:59:02.651689232 +0300
+</span></span><span class="line"><span class="cl">+++ /root/xray-src/proxy/freedom/freedom.go     2026-01-16 12:53:46.318155697 +0300
+</span></span><span class="line"><span class="cl">@@ -5,6 +5,7 @@
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;crypto/rand&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;io&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl">+        <span class="s2">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;github.com/pires/go-proxyproto&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;github.com/xtls/xray-core/common&#34;</span>
+</span></span><span class="line"><span class="cl">@@ -85,8 +86,20 @@
+</span></span><span class="line"><span class="cl">        ob.Name <span class="o">=</span> <span class="s2">&#34;freedom&#34;</span>
+</span></span><span class="line"><span class="cl">        ob.CanSpliceCopy <span class="o">=</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl">        inbound :<span class="o">=</span> session.InboundFromContext<span class="o">(</span>ctx<span class="o">)</span>
+</span></span><span class="line"><span class="cl">-
+</span></span><span class="line"><span class="cl">        destination :<span class="o">=</span> ob.Target
+</span></span><span class="line"><span class="cl">+
+</span></span><span class="line"><span class="cl">+       myJitter :<span class="o">=</span> dice.Roll<span class="o">(</span>40<span class="o">)</span> + <span class="m">10</span> 
+</span></span><span class="line"><span class="cl">+       fmt.Printf<span class="o">(</span><span class="s2">&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;</span>, destination.String<span class="o">()</span>, myJitter<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+       time.Sleep<span class="o">(</span>time.Duration<span class="o">(</span>myJitter<span class="o">)</span> * time.Millisecond<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+
+</span></span><span class="line"><span class="cl">+       myLife :<span class="o">=</span> time.Duration<span class="o">(</span>dice.Roll<span class="o">(</span>540<span class="o">)</span>+180<span class="o">)</span> * time.Second
+</span></span><span class="line"><span class="cl">+       fmt.Printf<span class="o">(</span><span class="s2">&#34;[DEBUG] Лимит сессии: %v\n&#34;</span>, myLife<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+
+</span></span><span class="line"><span class="cl">+       sessionCtx, sessionCancel :<span class="o">=</span> context.WithTimeout<span class="o">(</span>ctx, myLife<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+       defer sessionCancel<span class="o">()</span>
+</span></span><span class="line"><span class="cl">+       <span class="nv">ctx</span> <span class="o">=</span> sessionCtx
+</span></span><span class="line"><span class="cl">        origTargetAddr :<span class="o">=</span> ob.OriginalTarget.Address
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nv">origTargetAddr</span> <span class="o">==</span> nil <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">origTargetAddr</span> <span class="o">=</span> ob.Target.Address
+</span></span><span class="line"><span class="cl">@@ -165,7 +178,8 @@
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">        plcy :<span class="o">=</span> h.policy<span class="o">()</span>
+</span></span><span class="line"><span class="cl">-       ctx, cancel :<span class="o">=</span> context.WithCancel<span class="o">(</span>ctx<span class="o">)</span>
+</span></span><span class="line"><span class="cl">+        var cancel context.CancelFunc
+</span></span><span class="line"><span class="cl">+       ctx, <span class="nv">cancel</span> <span class="o">=</span> context.WithCancel<span class="o">(</span>ctx<span class="o">)</span>
+</span></span><span class="line"><span class="cl">        timer :<span class="o">=</span> signal.CancelAfterInactivity<span class="o">(</span>ctx, func<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                cancel<span class="o">()</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> newCancel !<span class="o">=</span> nil <span class="o">{</span>
+</span></span></code></pre></div><ol start="3">
+<li>
+<p>Сохрани: Ctrl+O, Enter, затем Ctrl+X</p>
+</li>
+<li>
+<p>Переходим в папку, где лежит файл freedom.go</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/xray-src/proxy/freedom/
+</span></span></code></pre></div><ol start="5">
+<li>Применяем изменения из файла патча</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">patch freedom.go &lt; ~/xray_custom.patch
+</span></span></code></pre></div><p> </p>
 <h1 id="шаг-4-компиляция">Шаг 4: Компиляция<a href="#шаг-4-компиляция" class="hanchor" ariaLabel="Anchor">#</a> </h1>
 <p>Собираем кастомный файл из измененных исходников:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/xray-src/main

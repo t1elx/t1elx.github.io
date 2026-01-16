@@ -42,13 +42,71 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 # Шаг 3: Замена файла прошивки
 
 
-Открой файл через `nano` и замени содержимое:
+Применяем через Патч:
 
+1. Создаем пустой файл
 ```bash
-nano /root/xray-src/proxy/freedom/freedom.go
+nano ~/xray_custom.patch
 ```
 
-> За файлом стучись в telegram: @t1elx
+2. Вставь текст патча (из блока ниже) в редактор:
+
+```bash
+--- /root/freedom.go.orig       2026-01-16 21:59:02.651689232 +0300
++++ /root/xray-src/proxy/freedom/freedom.go     2026-01-16 12:53:46.318155697 +0300
+@@ -5,6 +5,7 @@
+        "crypto/rand"
+        "io"
+        "time"
++        "fmt"
+ 
+        "github.com/pires/go-proxyproto"
+        "github.com/xtls/xray-core/common"
+@@ -85,8 +86,20 @@
+        ob.Name = "freedom"
+        ob.CanSpliceCopy = 1
+        inbound := session.InboundFromContext(ctx)
+-
+        destination := ob.Target
++
++       myJitter := dice.Roll(40) + 10 
++       fmt.Printf("[DEBUG] Соединение: %s | Jitter: %dms\n", destination.String(), myJitter)
++       time.Sleep(time.Duration(myJitter) * time.Millisecond)
++
++       myLife := time.Duration(dice.Roll(540)+180) * time.Second
++       fmt.Printf("[DEBUG] Лимит сессии: %v\n", myLife)
++
++       sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife)
++       defer sessionCancel()
++       ctx = sessionCtx
+        origTargetAddr := ob.OriginalTarget.Address
+        if origTargetAddr == nil {
+                origTargetAddr = ob.Target.Address
+@@ -165,7 +178,8 @@
+        }
+ 
+        plcy := h.policy()
+-       ctx, cancel := context.WithCancel(ctx)
++        var cancel context.CancelFunc
++       ctx, cancel = context.WithCancel(ctx)
+        timer := signal.CancelAfterInactivity(ctx, func() {
+                cancel()
+                if newCancel != nil {
+```
+
+3. Сохрани: Ctrl+O, Enter, затем Ctrl+X
+
+4. Переходим в папку, где лежит файл freedom.go
+
+```bash
+cd ~/xray-src/proxy/freedom/
+```
+
+5. Применяем изменения из файла патча
+
+```bash
+patch freedom.go < ~/xray_custom.patch
+```
 
 &nbsp;
 # Шаг 4: Компиляция
