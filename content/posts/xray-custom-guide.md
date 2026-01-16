@@ -44,59 +44,56 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 
 Применяем через Патч:
 
-1. Создай пустой файл
-```bash
-nano ~/xray_custom.patch
-```
-
-2. Вставь текст патча (из блока ниже) в редактор
+1. Создай файл патча
 
 ```bash
---- /root/freedom.go.orig       2026-01-16 21:59:02.651689232 +0300
-+++ /root/xray-src/proxy/freedom/freedom.go     2026-01-16 12:53:46.318155697 +0300
+cat << 'EOF' > ~/xray_custom.patch
+--- freedom.go
++++ freedom.go
 @@ -5,6 +5,7 @@
-        "crypto/rand"
-        "io"
-        "time"
-+        "fmt"
+ 	"crypto/rand"
+ 	"io"
+ 	"time"
++	"fmt"
  
-        "github.com/pires/go-proxyproto"
-        "github.com/xtls/xray-core/common"
+ 	"github.com/pires/go-proxyproto"
+ 	"github.com/xtls/xray-core/common"
 @@ -85,8 +86,20 @@
-        ob.Name = "freedom"
-        ob.CanSpliceCopy = 1
-        inbound := session.InboundFromContext(ctx)
+ 	ob.Name = "freedom"
+ 	ob.CanSpliceCopy = 1
+ 	inbound := session.InboundFromContext(ctx)
 -
-        destination := ob.Target
+ 	destination := ob.Target
 +
-+       myJitter := dice.Roll(40) + 10 
-+       fmt.Printf("[DEBUG] Соединение: %s | Jitter: %dms\n", destination.String(), myJitter)
-+       time.Sleep(time.Duration(myJitter) * time.Millisecond)
++	// === 1. JITTER (ПАУЗА) ===
++	myJitter := dice.Roll(40) + 10
++	fmt.Printf("[DEBUG] Соединение: %s | Jitter: %dms\n", destination.String(), myJitter)
++	time.Sleep(time.Duration(myJitter) * time.Millisecond)
 +
-+       myLife := time.Duration(dice.Roll(540)+180) * time.Second
-+       fmt.Printf("[DEBUG] Лимит сессии: %v\n", myLife)
++	// === 2. ЛИМИТ ЖИЗНИ СЕССИИ ===
++	myLife := time.Duration(dice.Roll(540)+180) * time.Second
++	fmt.Printf("[DEBUG] Лимит сессии: %v\n", myLife)
 +
-+       sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife)
-+       defer sessionCancel()
-+       ctx = sessionCtx
-        origTargetAddr := ob.OriginalTarget.Address
-        if origTargetAddr == nil {
-                origTargetAddr = ob.Target.Address
++	sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife)
++	defer sessionCancel()
++	ctx = sessionCtx
+ 	origTargetAddr := ob.OriginalTarget.Address
+ 	if origTargetAddr == nil {
+ 		origTargetAddr = ob.Target.Address
 @@ -165,7 +178,8 @@
-        }
+ 	}
  
-        plcy := h.policy()
--       ctx, cancel := context.WithCancel(ctx)
-+        var cancel context.CancelFunc
-+       ctx, cancel = context.WithCancel(ctx)
-        timer := signal.CancelAfterInactivity(ctx, func() {
-                cancel()
-                if newCancel != nil {
+ 	plcy := h.policy()
+-	ctx, cancel := context.WithCancel(ctx)
++	var cancel context.CancelFunc
++	ctx, cancel = context.WithCancel(ctx)
+ 	timer := signal.CancelAfterInactivity(ctx, func() {
+ 		cancel()
+ 		if newCancel != nil {
+EOF
 ```
 
-3. Сохрани: Ctrl+O, Enter, затем Ctrl+X
-
-4. Переходи в папку, где лежит файл freedom.go
+1. Переходи в папку, где лежит файл freedom.go
 
 ```bash
 cd ~/xray-src/proxy/freedom/
