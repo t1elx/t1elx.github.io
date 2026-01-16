@@ -9,7 +9,7 @@
 <meta name="description" content=" Примечание: Эта страница скрыта из общего списка и доступна только по прямой ссылке.
 Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
 bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Патчим Xray Применяем через Патч:
-Создаем пустой файл nano ~/xray_custom.patch Вставь текст патча (из блока ниже) в редактор: --- /root/freedom.go.orig 2026-01-16 21:59:02.651689232 &#43;0300 &#43;&#43;&#43; /root/xray-src/proxy/freedom/freedom.go 2026-01-16 12:53:46.318155697 &#43;0300 @@ -5,6 &#43;5,7 @@ &#34;crypto/rand&#34; &#34;io&#34; &#34;time&#34; &#43; &#34;fmt&#34; &#34;github.com/pires/go-proxyproto&#34; &#34;github.com/xtls/xray-core/common&#34; @@ -85,8 &#43;86,20 @@ ob.Name = &#34;freedom&#34; ob.CanSpliceCopy = 1 inbound := session.InboundFromContext(ctx) - destination := ob.Target &#43; &#43; myJitter := dice.Roll(40) &#43; 10 &#43; fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter) &#43; time.Sleep(time.Duration(myJitter) * time.Millisecond) &#43; &#43; myLife := time.Duration(dice.Roll(540)&#43;180) * time.Second &#43; fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife) &#43; &#43; sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife) &#43; defer sessionCancel() &#43; ctx = sessionCtx origTargetAddr := ob.OriginalTarget.Address if origTargetAddr == nil { origTargetAddr = ob.Target.Address @@ -165,7 &#43;178,8 @@ } plcy := h.policy() - ctx, cancel := context.WithCancel(ctx) &#43; var cancel context.CancelFunc &#43; ctx, cancel = context.WithCancel(ctx) timer := signal.CancelAfterInactivity(ctx, func() { cancel() if newCancel != nil { Сохрани: Ctrl&#43;O, Enter, затем Ctrl&#43;X
+Создай пустой файл nano ~/xray_custom.patch Вставь текст патча (из блока ниже) в редактор --- /root/freedom.go.orig 2026-01-16 21:59:02.651689232 &#43;0300 &#43;&#43;&#43; /root/xray-src/proxy/freedom/freedom.go 2026-01-16 12:53:46.318155697 &#43;0300 @@ -5,6 &#43;5,7 @@ &#34;crypto/rand&#34; &#34;io&#34; &#34;time&#34; &#43; &#34;fmt&#34; &#34;github.com/pires/go-proxyproto&#34; &#34;github.com/xtls/xray-core/common&#34; @@ -85,8 &#43;86,20 @@ ob.Name = &#34;freedom&#34; ob.CanSpliceCopy = 1 inbound := session.InboundFromContext(ctx) - destination := ob.Target &#43; &#43; myJitter := dice.Roll(40) &#43; 10 &#43; fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter) &#43; time.Sleep(time.Duration(myJitter) * time.Millisecond) &#43; &#43; myLife := time.Duration(dice.Roll(540)&#43;180) * time.Second &#43; fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife) &#43; &#43; sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife) &#43; defer sessionCancel() &#43; ctx = sessionCtx origTargetAddr := ob.OriginalTarget.Address if origTargetAddr == nil { origTargetAddr = ob.Target.Address @@ -165,7 &#43;178,8 @@ } plcy := h.policy() - ctx, cancel := context.WithCancel(ctx) &#43; var cancel context.CancelFunc &#43; ctx, cancel = context.WithCancel(ctx) timer := signal.CancelAfterInactivity(ctx, func() { cancel() if newCancel != nil { Сохрани: Ctrl&#43;O, Enter, затем Ctrl&#43;X
 " />
 <meta name="keywords" content="" />
 
@@ -80,7 +80,7 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/insta
 <meta property="og:description" content=" Примечание: Эта страница скрыта из общего списка и доступна только по прямой ссылке.
 Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
 bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Патчим Xray Применяем через Патч:
-Создаем пустой файл nano ~/xray_custom.patch Вставь текст патча (из блока ниже) в редактор: --- /root/freedom.go.orig 2026-01-16 21:59:02.651689232 &#43;0300 &#43;&#43;&#43; /root/xray-src/proxy/freedom/freedom.go 2026-01-16 12:53:46.318155697 &#43;0300 @@ -5,6 &#43;5,7 @@ &#34;crypto/rand&#34; &#34;io&#34; &#34;time&#34; &#43; &#34;fmt&#34; &#34;github.com/pires/go-proxyproto&#34; &#34;github.com/xtls/xray-core/common&#34; @@ -85,8 &#43;86,20 @@ ob.Name = &#34;freedom&#34; ob.CanSpliceCopy = 1 inbound := session.InboundFromContext(ctx) - destination := ob.Target &#43; &#43; myJitter := dice.Roll(40) &#43; 10 &#43; fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter) &#43; time.Sleep(time.Duration(myJitter) * time.Millisecond) &#43; &#43; myLife := time.Duration(dice.Roll(540)&#43;180) * time.Second &#43; fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife) &#43; &#43; sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife) &#43; defer sessionCancel() &#43; ctx = sessionCtx origTargetAddr := ob.OriginalTarget.Address if origTargetAddr == nil { origTargetAddr = ob.Target.Address @@ -165,7 &#43;178,8 @@ } plcy := h.policy() - ctx, cancel := context.WithCancel(ctx) &#43; var cancel context.CancelFunc &#43; ctx, cancel = context.WithCancel(ctx) timer := signal.CancelAfterInactivity(ctx, func() { cancel() if newCancel != nil { Сохрани: Ctrl&#43;O, Enter, затем Ctrl&#43;X
+Создай пустой файл nano ~/xray_custom.patch Вставь текст патча (из блока ниже) в редактор --- /root/freedom.go.orig 2026-01-16 21:59:02.651689232 &#43;0300 &#43;&#43;&#43; /root/xray-src/proxy/freedom/freedom.go 2026-01-16 12:53:46.318155697 &#43;0300 @@ -5,6 &#43;5,7 @@ &#34;crypto/rand&#34; &#34;io&#34; &#34;time&#34; &#43; &#34;fmt&#34; &#34;github.com/pires/go-proxyproto&#34; &#34;github.com/xtls/xray-core/common&#34; @@ -85,8 &#43;86,20 @@ ob.Name = &#34;freedom&#34; ob.CanSpliceCopy = 1 inbound := session.InboundFromContext(ctx) - destination := ob.Target &#43; &#43; myJitter := dice.Roll(40) &#43; 10 &#43; fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter) &#43; time.Sleep(time.Duration(myJitter) * time.Millisecond) &#43; &#43; myLife := time.Duration(dice.Roll(540)&#43;180) * time.Second &#43; fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife) &#43; &#43; sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife) &#43; defer sessionCancel() &#43; ctx = sessionCtx origTargetAddr := ob.OriginalTarget.Address if origTargetAddr == nil { origTargetAddr = ob.Target.Address @@ -165,7 &#43;178,8 @@ } plcy := h.policy() - ctx, cancel := context.WithCancel(ctx) &#43; var cancel context.CancelFunc &#43; ctx, cancel = context.WithCancel(ctx) timer := signal.CancelAfterInactivity(ctx, func() { cancel() if newCancel != nil { Сохрани: Ctrl&#43;O, Enter, затем Ctrl&#43;X
 " />
 <meta property="og:url" content="http://localhost:1313/posts/xray-custom-guide/" />
 <meta property="og:site_name" content="T1elx blog" />
@@ -195,11 +195,11 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/insta
 <h1 id="шаг-3-патчим-xray">Шаг 3: Патчим Xray<a href="#шаг-3-патчим-xray" class="hanchor" ariaLabel="Anchor">#</a> </h1>
 <p>Применяем через Патч:</p>
 <ol>
-<li>Создаем пустой файл</li>
+<li>Создай пустой файл</li>
 </ol>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">nano ~/xray_custom.patch
 </span></span></code></pre></div><ol start="2">
-<li>Вставь текст патча (из блока ниже) в редактор:</li>
+<li>Вставь текст патча (из блока ниже) в редактор</li>
 </ol>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">--- /root/freedom.go.orig       2026-01-16 21:59:02.651689232 +0300
 </span></span><span class="line"><span class="cl">+++ /root/xray-src/proxy/freedom/freedom.go     2026-01-16 12:53:46.318155697 +0300
@@ -246,22 +246,22 @@ bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/insta
 <p>Сохрани: Ctrl+O, Enter, затем Ctrl+X</p>
 </li>
 <li>
-<p>Переходим в папку, где лежит файл freedom.go</p>
+<p>Переходи в папку, где лежит файл freedom.go</p>
 </li>
 </ol>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/xray-src/proxy/freedom/
 </span></span></code></pre></div><ol start="5">
-<li>Применяем изменения из файла патча</li>
+<li>Примени изменения из файла патча</li>
 </ol>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">patch freedom.go &lt; ~/xray_custom.patch
 </span></span></code></pre></div><p> </p>
 <h1 id="шаг-4-компиляция">Шаг 4: Компиляция<a href="#шаг-4-компиляция" class="hanchor" ariaLabel="Anchor">#</a> </h1>
-<p>Собираем кастомный файл из измененных исходников:</p>
+<p>Собери кастомный файл из измененных исходников:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> ~/xray-src/main
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go build -v -o xray-custom
 </span></span></code></pre></div><p> </p>
 <h1 id="шаг-5-активация-бинарника">Шаг 5: Активация бинарника<a href="#шаг-5-активация-бинарника" class="hanchor" ariaLabel="Anchor">#</a> </h1>
-<p>Заменяем стандартный Xray кастомным и перезапускаем панель:</p>
+<p>Замени стандартный Xray кастомным и перезапускаем панель:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl stop x-ui
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp ~/xray-src/main/xray-custom /usr/local/x-ui/bin/xray-linux-amd64
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x /usr/local/x-ui/bin/xray-linux-amd64

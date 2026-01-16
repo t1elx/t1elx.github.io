@@ -44,12 +44,12 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 
 Применяем через Патч:
 
-1. Создаем пустой файл
+1. Создай пустой файл
 ```bash
 nano ~/xray_custom.patch
 ```
 
-2. Вставь текст патча (из блока ниже) в редактор:
+2. Вставь текст патча (из блока ниже) в редактор
 
 ```bash
 --- /root/freedom.go.orig       2026-01-16 21:59:02.651689232 +0300
@@ -96,13 +96,13 @@ nano ~/xray_custom.patch
 
 3. Сохрани: Ctrl+O, Enter, затем Ctrl+X
 
-4. Переходим в папку, где лежит файл freedom.go
+4. Переходи в папку, где лежит файл freedom.go
 
 ```bash
 cd ~/xray-src/proxy/freedom/
 ```
 
-5. Применяем изменения из файла патча
+5. Примени изменения из файла патча
 
 ```bash
 patch freedom.go < ~/xray_custom.patch
@@ -110,7 +110,7 @@ patch freedom.go < ~/xray_custom.patch
 
 &nbsp;
 # Шаг 4: Компиляция
-Собираем кастомный файл из измененных исходников:
+Собери кастомный файл из измененных исходников:
 
 ```bash
 cd ~/xray-src/main
@@ -122,7 +122,7 @@ go build -v -o xray-custom
 
 &nbsp;
 # Шаг 5: Активация бинарника
-Заменяем стандартный Xray кастомным и перезапускаем панель:
+Замени стандартный Xray кастомным и перезапускаем панель:
 
 ```bash
 systemctl stop x-ui
