@@ -24,7 +24,7 @@ bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.
 ```
 
 ```bash
-apt update && apt install golang-go git -y
+apt update && apt install golang-go git patch -y
 ```
 
 &nbsp;
