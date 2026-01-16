@@ -2,7 +2,8 @@ baseURL = "https://t1elx.github.io/"
 languageCode = "ru"
 title = "Pentest Notes"
 theme = "terminal"
-paginate = 5
+[pagination]
+  pagerSize = 5
 
 [params]
   # Цвета: orange, blue, red, green, pink
