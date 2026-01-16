@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pentest Notes</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on Pentest Notes</description>
+    <title>Abouts on Pentest Notes</title>
+    <link>http://localhost:1313/about/</link>
+    <description>Recent content in Abouts on Pentest Notes</description>
     <generator>Hugo</generator>
     <language>ru</language>
     <lastBuildDate>Fri, 16 Jan 2026 23:06:36 +0500</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/about/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>http://localhost:1313/about/about/</link>
       <pubDate>Fri, 16 Jan 2026 23:06:36 +0500</pubDate>
       <guid>http://localhost:1313/about/about/</guid>
       <description>&lt;p&gt;+++&#xA;title = &amp;ldquo;About Me&amp;rdquo;&#xA;author = &amp;ldquo;t1elx&amp;rdquo;&#xA;+++&lt;/p&gt;&#xA;&lt;p&gt;Привет! Я занимаюсь изучением сетевой безопасности и пентестом.&#xA;В этом блоге я делюсь своими заметками и инструкциями.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Hello Pentest</title>
-      <link>http://localhost:1313/posts/hello-pentest/</link>
-      <pubDate>Fri, 16 Jan 2026 21:33:27 +0500</pubDate>
-      <guid>http://localhost:1313/posts/hello-pentest/</guid>
-      <description>&lt;h1 id=&#34;привет-это-мой-новый-блог&#34;&gt;Привет, это мой новый блог!&lt;/h1&gt;&#xA;&lt;p&gt;Здесь я буду писать про свои успехи в пентесте.&#xA;Это мой первый текст, отредактированный в &lt;strong&gt;VS Code&lt;/strong&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

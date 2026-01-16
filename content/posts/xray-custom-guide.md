@@ -6,7 +6,7 @@ author = "t1elx"
 robotsNoIndex = true
 
 
-[_build]
+[build]
   list = 'never'      # Не показывать в списке постов
   render = 'always'   # Но разрешить открывать по прямой ссылке
   publishResources = false
