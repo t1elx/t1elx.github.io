@@ -39,7 +39,7 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 ```
 
 &nbsp;
-# Шаг 3: Замена файла прошивки
+# Шаг 3: Патчим Xray
 
 
 Применяем через Патч:
