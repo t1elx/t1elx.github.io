@@ -6,8 +6,15 @@
     <description>Recent content on Pentest Notes</description>
     <generator>Hugo</generator>
     <language>ru</language>
-    <lastBuildDate>Fri, 16 Jan 2026 21:33:27 +0500</lastBuildDate>
+    <lastBuildDate>Fri, 16 Jan 2026 23:06:36 +0500</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Fri, 16 Jan 2026 23:06:36 +0500</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;p&gt;+++&#xA;title = &amp;ldquo;About Me&amp;rdquo;&#xA;author = &amp;ldquo;t1elx&amp;rdquo;&#xA;+++&lt;/p&gt;&#xA;&lt;p&gt;Привет! Я занимаюсь изучением сетевой безопасности и пентестом.&#xA;В этом блоге я делюсь своими заметками и инструкциями.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Hello Pentest</title>
       <link>http://localhost:1313/posts/hello-pentest/</link>
