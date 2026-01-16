@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>T1elx blog</title>
+    <title>t1elx</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content on T1elx blog</description>
+    <description>Recent content on t1elx</description>
     <generator>Hugo</generator>
     <language>ru</language>
     <lastBuildDate>Fri, 16 Jan 2026 21:33:27 +0500</lastBuildDate>

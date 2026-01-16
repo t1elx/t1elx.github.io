@@ -29,3 +29,12 @@ theme = "terminal"
 [markup.highlight]
   noClasses = false
 
+  [languages]
+  [languages.ru]
+    languageName = "Russian"
+    title = "t1elx"
+
+    [languages.ru.params.logo]
+      logoText = "t1elx"
+      logoHomeLink = "/"
+
