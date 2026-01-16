@@ -7,7 +7,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content=" Примечание: Эта страница скрыта из общего списка и доступна только по прямой ссылке.
-Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui и язык Go для сборки:
+Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
 bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Замена файла прошивки Открой файл через nano и замени содержимое:
 nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в telegram: @t1elx
 " />
@@ -78,7 +78,7 @@ nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Инструкция по развертыванию Custom Xray">
 <meta property="og:description" content=" Примечание: Эта страница скрыта из общего списка и доступна только по прямой ссылке.
-Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui и язык Go для сборки:
+Шаг 1: Подготовка нового сервера. Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
 bash &lt;(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) apt update &amp;&amp; apt install golang-go git -y Шаг 2: Загрузка исходников Xray cd ~ git clone https://github.com/XTLS/Xray-core.git xray-src Шаг 3: Замена файла прошивки Открой файл через nano и замени содержимое:
 nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в telegram: @t1elx
 " />
@@ -192,7 +192,7 @@ nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в
 </blockquote>
 <p> </p>
 <h1 id="шаг-1-подготовка-нового-сервера">Шаг 1: Подготовка нового сервера.<a href="#шаг-1-подготовка-нового-сервера" class="hanchor" ariaLabel="Anchor">#</a> </h1>
-<p>Установи панель управления 3x-ui и язык Go для сборки:</p>
+<p>Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bash &lt;<span class="o">(</span>curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh<span class="o">)</span>
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update <span class="o">&amp;&amp;</span> apt install golang-go git -y
 </span></span></code></pre></div><p> </p>
@@ -213,7 +213,7 @@ nano /root/xray-src/proxy/freedom/freedom.go За файлом стучись в
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">go build -v -o xray-custom
 </span></span></code></pre></div><p> </p>
 <h1 id="шаг-5-активация-бинарника">Шаг 5: Активация бинарника<a href="#шаг-5-активация-бинарника" class="hanchor" ariaLabel="Anchor">#</a> </h1>
-<p>Заменяем стандартный Xray твоим кастомным и перезапускаем панель:</p>
+<p>Заменяем стандартный Xray кастомным и перезапускаем панель:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemctl stop x-ui
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp ~/xray-src/main/xray-custom /usr/local/x-ui/bin/xray-linux-amd64
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">chmod +x /usr/local/x-ui/bin/xray-linux-amd64

@@ -17,7 +17,7 @@ robotsNoIndex = true
 
 &nbsp;
 # Шаг 1: Подготовка нового сервера.
-Установи панель управления 3x-ui и язык Go для сборки:
+Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
@@ -64,7 +64,7 @@ go build -v -o xray-custom
 
 &nbsp;
 # Шаг 5: Активация бинарника
-Заменяем стандартный Xray твоим кастомным и перезапускаем панель:
+Заменяем стандартный Xray кастомным и перезапускаем панель:
 
 ```bash
 systemctl stop x-ui
