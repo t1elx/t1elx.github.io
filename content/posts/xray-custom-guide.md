@@ -93,13 +93,13 @@ cat << 'EOF' > ~/xray_custom.patch
 EOF
 ```
 
-1. Переходи в папку, где лежит файл freedom.go
+2. Переходи в папку, где лежит файл freedom.go
 
 ```bash
 cd ~/xray-src/proxy/freedom/
 ```
 
-5. Примени изменения из файла патча
+3. Примени изменения из файла патча
 
 ```bash
 patch freedom.go < ~/xray_custom.patch
