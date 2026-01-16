@@ -12,4 +12,5 @@ showComments = false
 В этом блоге я делюсь своими заметками и инструкциями.
 
 Связь со мной:
-Telegram: @t1elx
+
+Telegram @t1elx
