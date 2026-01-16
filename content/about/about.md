@@ -2,10 +2,6 @@
 date = '2026-01-16T23:06:36+05:00'
 draft = false
 title = 'About'
-+++
-
-+++
-title = "About Me"
 author = "t1elx"
 +++
 
