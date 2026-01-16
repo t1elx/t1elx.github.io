@@ -9,11 +9,11 @@
     <lastBuildDate>Fri, 16 Jan 2026 21:33:27 +0500</lastBuildDate>
     <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello Pentest</title>
+      <title>About</title>
       <link>http://localhost:1313/posts/hello-pentest/</link>
       <pubDate>Fri, 16 Jan 2026 21:33:27 +0500</pubDate>
       <guid>http://localhost:1313/posts/hello-pentest/</guid>
-      <description>&lt;h1 id=&#34;привет-это-мой-новый-блог&#34;&gt;Привет, это мой новый блог!&lt;/h1&gt;&#xA;&lt;p&gt;Здесь я буду писать про свои успехи в пентесте.&#xA;Это мой первый текст, отредактированный в &lt;strong&gt;VS Code&lt;/strong&gt;.&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;привет-это-мой-новый-блог&#34;&gt;Привет, это мой новый блог!&lt;/h1&gt;&#xA;&lt;p&gt;Я занимаюсь изучением сетевой безопасности и пентестом.&#xA;В этом блоге я делюсь своими заметками и инструкциями.&lt;/p&gt;&#xA;&lt;p&gt;Связь со мной:&lt;/p&gt;&#xA;&lt;p&gt;Telegram @t1elx&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
