@@ -1,0 +1,30 @@
+baseURL = "https://t1elx.github.io/"
+languageCode = "ru"
+title = "Pentest Notes"
+theme = "terminal"
+paginate = 5
+
+[params]
+  # Цвета: orange, blue, red, green, pink
+  themeColor = "green"
+  contentTypeName = "posts"
+  showMenuItems = 3
+  fullWidthTheme = false
+  centerTheme = true
+
+[menu]
+  [[menu.main]]
+    name = "Writeups"
+    url = "/posts/"
+    weight = 1
+  [[menu.main]]
+    name = "Tools"
+    url = "/tools/"
+    weight = 2
+  [[menu.main]]
+    name = "About"
+    url = "/about/"
+    weight = 3
+
+[markup.highlight]
+  noClasses = false
