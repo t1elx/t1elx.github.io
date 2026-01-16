@@ -6,13 +6,14 @@ theme = "terminal"
   pagerSize = 5
 
 [params]
-  # Цвета: orange, blue, red, green, pink
+  # Попробуй именно этот порядок
   themeColor = "blue"
   contentTypeName = "posts"
   showMenuItems = 2
   fullWidthTheme = false
   centerTheme = true
-  extendedTemplate = false
+  defaultTheme = "blue"
+  env = "production"
 
 [menu]
   [[menu.main]]
