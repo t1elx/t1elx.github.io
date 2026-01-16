@@ -65,12 +65,10 @@ cat << 'EOF' > ~/xray_custom.patch
 -
  	destination := ob.Target
 +
-+	// === 1. JITTER (ПАУЗА) ===
 +	myJitter := dice.Roll(40) + 10
 +	fmt.Printf("[DEBUG] Соединение: %s | Jitter: %dms\n", destination.String(), myJitter)
 +	time.Sleep(time.Duration(myJitter) * time.Millisecond)
 +
-+	// === 2. ЛИМИТ ЖИЗНИ СЕССИИ ===
 +	myLife := time.Duration(dice.Roll(540)+180) * time.Second
 +	fmt.Printf("[DEBUG] Лимит сессии: %v\n", myLife)
 +
