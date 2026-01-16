@@ -6,15 +6,8 @@
     <description>Recent content on T1elx blog</description>
     <generator>Hugo</generator>
     <language>ru</language>
-    <lastBuildDate>Fri, 16 Jan 2026 23:06:36 +0500</lastBuildDate>
+    <lastBuildDate>Fri, 16 Jan 2026 21:33:27 +0500</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About</title>
-      <link>http://localhost:1313/about/about/</link>
-      <pubDate>Fri, 16 Jan 2026 23:06:36 +0500</pubDate>
-      <guid>http://localhost:1313/about/about/</guid>
-      <description>&lt;p&gt;Привет! Я занимаюсь изучением сетевой безопасности и пентестом.&#xA;В этом блоге я делюсь своими заметками и инструкциями.&lt;/p&gt;&#xA;&lt;p&gt;Связь со мной:&lt;/p&gt;&#xA;&lt;p&gt;Telegram @t1elx&lt;/p&gt;</description>
-    </item>
     <item>
       <title>About</title>
       <link>http://localhost:1313/posts/hello-pentest/</link>
