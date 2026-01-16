@@ -88,7 +88,7 @@ cat << 'EOF' > ~/xray_custom.patch
 EOF
 ```
 
-2. Переходи в папку, где лежит файл freedom.go
+2. Перейди в папку, где лежит файл freedom.go
 
 ```bash
 cd ~/xray-src/proxy/freedom/
