@@ -9,9 +9,10 @@ theme = "terminal"
   # Цвета: orange, blue, red, green, pink
   themeColor = "blue"
   contentTypeName = "posts"
-  showMenuItems = 3
+  showMenuItems = 2
   fullWidthTheme = false
   centerTheme = true
+  extendedTemplate = false
 
 [menu]
   [[menu.main]]
