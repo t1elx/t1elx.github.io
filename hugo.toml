@@ -28,3 +28,4 @@ paginate = 5
 
 [markup.highlight]
   noClasses = false
+
