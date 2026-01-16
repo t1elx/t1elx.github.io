@@ -14,6 +14,7 @@ robotsNoIndex = true
 
 > **Примечание:** Эта страница скрыта из общего списка и доступна только по прямой ссылке.
 
+
 &nbsp;
 # Шаг 1: Подготовка нового сервера.
 Установи панель управления 3x-ui и язык Go для сборки:
@@ -40,11 +41,14 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 &nbsp;
 # Шаг 3: Замена файла прошивки
 
+
 Открой файл через `nano` и замени содержимое:
 
 ```bash
 nano /root/xray-src/proxy/freedom/freedom.go
 ```
+
+> За файлом стучись в telegram: @t1elx
 
 &nbsp;
 # Шаг 4: Компиляция
