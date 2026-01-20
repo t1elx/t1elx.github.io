@@ -43,7 +43,7 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 
 1. Создай файл патча
 
-```bash
+```diff
 cat << 'EOF' > ~/xray_custom.patch
 --- freedom.go
 +++ freedom.go

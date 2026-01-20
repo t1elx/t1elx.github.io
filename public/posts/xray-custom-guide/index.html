@@ -52,48 +52,48 @@
 </span><span class=lnt>40
 </span><span class=lnt>41
 </span><span class=lnt>42
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>cat <span class=s>&lt;&lt; &#39;EOF&#39; &gt; ~/xray_custom.patch
-</span></span></span><span class=line><span class=cl><span class=s>--- freedom.go
-</span></span></span><span class=line><span class=cl><span class=s>+++ freedom.go
-</span></span></span><span class=line><span class=cl><span class=s>@@ -5,6 +5,7 @@
-</span></span></span><span class=line><span class=cl><span class=s> 	&#34;crypto/rand&#34;
-</span></span></span><span class=line><span class=cl><span class=s> 	&#34;io&#34;
-</span></span></span><span class=line><span class=cl><span class=s> 	&#34;time&#34;
-</span></span></span><span class=line><span class=cl><span class=s>+	&#34;fmt&#34;
-</span></span></span><span class=line><span class=cl><span class=s> 
-</span></span></span><span class=line><span class=cl><span class=s> 	&#34;github.com/pires/go-proxyproto&#34;
-</span></span></span><span class=line><span class=cl><span class=s> 	&#34;github.com/xtls/xray-core/common&#34;
-</span></span></span><span class=line><span class=cl><span class=s>@@ -85,8 +86,20 @@
-</span></span></span><span class=line><span class=cl><span class=s> 	ob.Name = &#34;freedom&#34;
-</span></span></span><span class=line><span class=cl><span class=s> 	ob.CanSpliceCopy = 1
-</span></span></span><span class=line><span class=cl><span class=s> 	inbound := session.InboundFromContext(ctx)
-</span></span></span><span class=line><span class=cl><span class=s>-
-</span></span></span><span class=line><span class=cl><span class=s> 	destination := ob.Target
-</span></span></span><span class=line><span class=cl><span class=s>+
-</span></span></span><span class=line><span class=cl><span class=s>+	myJitter := dice.Roll(40) + 10
-</span></span></span><span class=line><span class=cl><span class=s>+	fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter)
-</span></span></span><span class=line><span class=cl><span class=s>+	time.Sleep(time.Duration(myJitter) * time.Millisecond)
-</span></span></span><span class=line><span class=cl><span class=s>+
-</span></span></span><span class=line><span class=cl><span class=s>+	myLife := time.Duration(dice.Roll(540)+180) * time.Second
-</span></span></span><span class=line><span class=cl><span class=s>+	fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife)
-</span></span></span><span class=line><span class=cl><span class=s>+
-</span></span></span><span class=line><span class=cl><span class=s>+	sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife)
-</span></span></span><span class=line><span class=cl><span class=s>+	defer sessionCancel()
-</span></span></span><span class=line><span class=cl><span class=s>+	ctx = sessionCtx
-</span></span></span><span class=line><span class=cl><span class=s> 	origTargetAddr := ob.OriginalTarget.Address
-</span></span></span><span class=line><span class=cl><span class=s> 	if origTargetAddr == nil {
-</span></span></span><span class=line><span class=cl><span class=s> 		origTargetAddr = ob.Target.Address
-</span></span></span><span class=line><span class=cl><span class=s>@@ -165,7 +178,8 @@
-</span></span></span><span class=line><span class=cl><span class=s> 	}
-</span></span></span><span class=line><span class=cl><span class=s> 
-</span></span></span><span class=line><span class=cl><span class=s> 	plcy := h.policy()
-</span></span></span><span class=line><span class=cl><span class=s>-	ctx, cancel := context.WithCancel(ctx)
-</span></span></span><span class=line><span class=cl><span class=s>+	var cancel context.CancelFunc
-</span></span></span><span class=line><span class=cl><span class=s>+	ctx, cancel = context.WithCancel(ctx)
-</span></span></span><span class=line><span class=cl><span class=s> 	timer := signal.CancelAfterInactivity(ctx, func() {
-</span></span></span><span class=line><span class=cl><span class=s> 		cancel()
-</span></span></span><span class=line><span class=cl><span class=s> 		if newCancel != nil {
-</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-diff data-lang=diff><span class=line><span class=cl>cat &lt;&lt; &#39;EOF&#39; &gt; ~/xray_custom.patch
+</span></span><span class=line><span class=cl><span class=gd>--- freedom.go
+</span></span></span><span class=line><span class=cl><span class=gi>+++ freedom.go
+</span></span></span><span class=line><span class=cl><span class=gu>@@ -5,6 +5,7 @@
+</span></span></span><span class=line><span class=cl> 	&#34;crypto/rand&#34;
+</span></span><span class=line><span class=cl> 	&#34;io&#34;
+</span></span><span class=line><span class=cl> 	&#34;time&#34;
+</span></span><span class=line><span class=cl><span class=gi>+	&#34;fmt&#34;
+</span></span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl> 	&#34;github.com/pires/go-proxyproto&#34;
+</span></span><span class=line><span class=cl> 	&#34;github.com/xtls/xray-core/common&#34;
+</span></span><span class=line><span class=cl><span class=gu>@@ -85,8 +86,20 @@
+</span></span></span><span class=line><span class=cl> 	ob.Name = &#34;freedom&#34;
+</span></span><span class=line><span class=cl> 	ob.CanSpliceCopy = 1
+</span></span><span class=line><span class=cl> 	inbound := session.InboundFromContext(ctx)
+</span></span><span class=line><span class=cl><span class=gd>-
+</span></span></span><span class=line><span class=cl> 	destination := ob.Target
+</span></span><span class=line><span class=cl><span class=gi>+
+</span></span></span><span class=line><span class=cl><span class=gi>+	myJitter := dice.Roll(40) + 10
+</span></span></span><span class=line><span class=cl><span class=gi>+	fmt.Printf(&#34;[DEBUG] Соединение: %s | Jitter: %dms\n&#34;, destination.String(), myJitter)
+</span></span></span><span class=line><span class=cl><span class=gi>+	time.Sleep(time.Duration(myJitter) * time.Millisecond)
+</span></span></span><span class=line><span class=cl><span class=gi>+
+</span></span></span><span class=line><span class=cl><span class=gi>+	myLife := time.Duration(dice.Roll(540)+180) * time.Second
+</span></span></span><span class=line><span class=cl><span class=gi>+	fmt.Printf(&#34;[DEBUG] Лимит сессии: %v\n&#34;, myLife)
+</span></span></span><span class=line><span class=cl><span class=gi>+
+</span></span></span><span class=line><span class=cl><span class=gi>+	sessionCtx, sessionCancel := context.WithTimeout(ctx, myLife)
+</span></span></span><span class=line><span class=cl><span class=gi>+	defer sessionCancel()
+</span></span></span><span class=line><span class=cl><span class=gi>+	ctx = sessionCtx
+</span></span></span><span class=line><span class=cl> 	origTargetAddr := ob.OriginalTarget.Address
+</span></span><span class=line><span class=cl> 	if origTargetAddr == nil {
+</span></span><span class=line><span class=cl> 		origTargetAddr = ob.Target.Address
+</span></span><span class=line><span class=cl><span class=gu>@@ -165,7 +178,8 @@
+</span></span></span><span class=line><span class=cl> 	}
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl> 	plcy := h.policy()
+</span></span><span class=line><span class=cl><span class=gd>-	ctx, cancel := context.WithCancel(ctx)
+</span></span></span><span class=line><span class=cl><span class=gi>+	var cancel context.CancelFunc
+</span></span></span><span class=line><span class=cl><span class=gi>+	ctx, cancel = context.WithCancel(ctx)
+</span></span></span><span class=line><span class=cl> 	timer := signal.CancelAfterInactivity(ctx, func() {
+</span></span><span class=line><span class=cl> 		cancel()
+</span></span><span class=line><span class=cl> 		if newCancel != nil {
+</span></span><span class=line><span class=cl>EOF
 </span></span></code></pre></td></tr></table></div></div><ol start=2><li>Перейди в папку, где лежит файл freedom.go</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=nb>cd</span> ~/xray-src/proxy/freedom/
 </span></span></code></pre></td></tr></table></div></div><ol start=3><li>Примени изменения из файла патча</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
