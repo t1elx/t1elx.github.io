@@ -1,19 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Posts on t1elx</title>
-    <link>http://localhost:1313/posts/</link>
-    <description>Recent content in Posts on t1elx</description>
-    <generator>Hugo</generator>
-    <language>ru</language>
-    <lastBuildDate>Fri, 16 Jan 2026 21:33:27 +0500</lastBuildDate>
-    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>About</title>
-      <link>http://localhost:1313/posts/hello-pentest/</link>
-      <pubDate>Fri, 16 Jan 2026 21:33:27 +0500</pubDate>
-      <guid>http://localhost:1313/posts/hello-pentest/</guid>
-      <description>&lt;h1 id=&#34;привет-это-мой-новый-блог&#34;&gt;Привет, это мой новый блог!&lt;/h1&gt;&#xA;&lt;p&gt;Я занимаюсь изучением сетевой безопасности и пентестом.&#xA;В этом блоге я делюсь своими заметками и инструкциями.&lt;/p&gt;&#xA;&lt;p&gt;Связь со мной:&lt;/p&gt;&#xA;&lt;p&gt;Telegram @t1elx&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on t1elx / offensive notes</title><link>https://t1elx.github.io/posts/</link><description>Recent content in Posts on t1elx / offensive notes</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Fri, 16 Jan 2026 23:24:50 +0500</lastBuildDate><atom:link href="https://t1elx.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://t1elx.github.io/posts/hello-pentest/</link><pubDate>Fri, 16 Jan 2026 21:33:27 +0500</pubDate><guid>https://t1elx.github.io/posts/hello-pentest/</guid><description>&lt;h1 id="привет-это-мой-новый-блог"&gt;Привет, это мой новый блог!&lt;/h1&gt;
+&lt;p&gt;Я занимаюсь изучением сетевой безопасности и пентестом.
+В этом блоге я делюсь своими заметками и инструкциями.&lt;/p&gt;
+&lt;p&gt;Связь со мной:&lt;/p&gt;
+&lt;p&gt;Telegram @t1elx&lt;/p&gt;</description></item></channel></rss>

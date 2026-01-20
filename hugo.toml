@@ -1,18 +1,21 @@
 baseURL = "https://t1elx.github.io/"
 languageCode = "ru"
-title = "T1elx blog"
+title = "t1elx / offensive notes"
 theme = "terminal"
+
+enableRobotsTXT = true
+enableGitInfo = true
+
 [pagination]
   pagerSize = 5
 
 [params]
-  # Попробуй именно этот порядок
   themeColor = "blue"
   contentTypeName = "posts"
   showMenuItems = 2
   fullWidthTheme = false
   centerTheme = true
-  defaultTheme = "blue"
+  defaultTheme = "dark"
   env = "production"
 
 [menu]
@@ -27,13 +30,13 @@ theme = "terminal"
 
 [markup.highlight]
   noClasses = false
+  lineNos = true
+  lineNumbersInTable = true
+  guessSyntax = true
 
-  [languages]
-  [languages.ru]
-    languageName = "Russian"
-    title = "t1elx"
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 4
 
-    [languages.ru.params.logo]
-      logoText = "t1elx"
-      logoHomeLink = "/"
-
+[frontmatter]
+  lastmod = ["lastmod", ":git", "date"]
