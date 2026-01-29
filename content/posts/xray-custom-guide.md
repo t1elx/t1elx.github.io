@@ -61,10 +61,9 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 1. Создай файл патча
 
 ```diff
+cat << 'EOF' > ~/xray_custom.patch
 # Patch Name: Xray-core Anti-DPI Jitter & Session Limit
 # Target Version: Xray-core v26.1.13
-
-cat << 'EOF' > ~/xray_custom.patch
 --- freedom.go
 +++ freedom.go
 @@ -5,6 +5,7 @@
