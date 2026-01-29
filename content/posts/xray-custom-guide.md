@@ -31,8 +31,8 @@ robotsNoIndex = true
    * **Назначение:** Предотвращение накопления аномальных объемов данных в рамках одной сессии. Это позволяет сегментировать поток данных, что соответствует паттернам работы обычных веб-приложений и снижает нагрузку на узлы связи.
 
 &nbsp;
-# Шаг 1: Подготовка нового сервера.
-Установи панель управления 3x-ui (если не установлена) и язык Go для сборки:
+# Шаг 1: Подготовка среды
+Установите необходимые инструменты для сборки и системные утилиты:
 
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
@@ -43,7 +43,7 @@ apt update && apt install golang-go git patch -y
 ```
 
 &nbsp;
-# Шаг 2: Загрузка исходников Xray
+# Шаг 2: Загрузка исходного кода
 
 ```bash
 cd ~
@@ -54,13 +54,13 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 ```
 
 &nbsp;
-# Шаг 3: Патчим Xray
+# Шаг 3: Применение патча
 
 1. Создай файл патча
 
 ```diff
 cat << 'EOF' > ~/xray_custom.patch
-# Patch Name: Xray-core Anti-DPI Jitter & Session Limit
+# Patch Name: Xray-core Jitter & Session Limit
 # Target Version: Xray-core v26.1.13
 --- freedom.go
 +++ freedom.go
@@ -131,7 +131,7 @@ go build -v -o xray-custom
 
 &nbsp;
 # Шаг 5: Активация бинарника
-Замени стандартный Xray кастомным и перезапускаем панель:
+Замени стандартный исполняемый файл кастомным и перезапути панель:
 
 ```bash
 systemctl stop x-ui
@@ -152,7 +152,7 @@ systemctl start x-ui
 
 &nbsp;
 # Шаг 6: Проверка работы (Режим отладки)
-Чтобы увидеть [DEBUG] логи, останови сервис и запусти Xray вручную:
+Для мониторинга активности в реальном времени используйте ручной запуск
 
 ```bash
 systemctl stop x-ui
@@ -160,7 +160,7 @@ systemctl stop x-ui
 ```bash
 /usr/local/x-ui/bin/xray-linux-amd64 -c /usr/local/x-ui/bin/config.json
 ```
-После этого подключись к VPN и открой пару сайтов.
+После этого подключись и открой пару сайтов.
 
 Когда убедишься, что логи идут, нажми Ctrl + C и верни сервис в работу:
 ```bash
