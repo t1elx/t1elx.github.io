@@ -1,5 +1,5 @@
 +++
-title = "Инструкция по развертыванию Custom Xray (патч)"
+title = "Xray Stealth Mode: Патч для обхода DPI через Jitter и ограничение времени сессий."
 date = "2026-01-16T22:00:00+05:00"
 draft = false
 author = "t1elx"
@@ -12,10 +12,10 @@ robotsNoIndex = true
   publishResources = false
 +++
 
-> **Примечание:** Эта страница скрыта из общего списка и доступна только по прямой ссылке.
+> **Примечание:** Данный патч разрабатывался и тестировался исключительно на Xray-core v26.1.13. Работа на более ранних или поздних версиях возможна, но не гарантируется. Перед применением на других версиях рекомендуется сделать резервную копию исполняемого файла.
 
 &nbsp;
-# Что делает патч:
+# Для чего:
 
 1. **Внесение случайной задержки (Jitter)**
    
@@ -59,6 +59,9 @@ git clone https://github.com/XTLS/Xray-core.git xray-src
 1. Создай файл патча
 
 ```diff
+# Patch Name: Xray-core Anti-DPI Jitter & Session Limit
+# Target Version: Xray-core v26.1.13
+
 cat << 'EOF' > ~/xray_custom.patch
 --- freedom.go
 +++ freedom.go
