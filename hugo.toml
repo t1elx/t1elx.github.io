@@ -40,3 +40,12 @@ enableGitInfo = true
 
 [frontmatter]
   lastmod = ["lastmod", ":git", "date"]
+
+[languages]
+  [languages.ru]
+    languageName = "Russian"
+    title = "t1elx"
+
+    [languages.ru.params.logo]
+      logoText = "t1elx"
+      logoHomeLink = "/"  
