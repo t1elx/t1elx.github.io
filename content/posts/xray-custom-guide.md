@@ -1,7 +1,6 @@
 +++
 title = "Модификация Xray-core: Исследование сетевой стабильности и защита от анализа трафика."
 description = "Гайд по кастомной сборке"
-tags = ["xray", "proxy", "security"]
 date = "2026-01-16T22:00:00+05:00"
 draft = false
 author = "t1elx"
