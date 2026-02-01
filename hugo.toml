@@ -17,6 +17,7 @@ enableGitInfo = true
   centerTheme = true
   defaultTheme = "dark"
   env = "production"
+  ReadMore = "Читать далее"
 
 [menu]
   [[menu.main]]
