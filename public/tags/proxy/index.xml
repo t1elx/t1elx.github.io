@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Proxy on t1elx</title><link>https://t1elx.pw/tags/proxy/</link><description>Recent content in Proxy on t1elx</description><generator>Hugo</generator><language>ru</language><lastBuildDate>Sun, 01 Feb 2026 21:49:26 +0500</lastBuildDate><atom:link href="https://t1elx.pw/tags/proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>Модификация Xray-core: Исследование сетевой стабильности и защита от анализа трафика.</title><link>https://t1elx.pw/posts/xray-custom-guide/</link><pubDate>Fri, 16 Jan 2026 22:00:00 +0500</pubDate><guid>https://t1elx.pw/posts/xray-custom-guide/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Отказ от ответственности:&lt;/strong&gt; Данный материал носит исключительно научно-исследовательский характер и предназначен для специалистов по сетевой безопасности и системных администраторов. Автор не призывает к нарушению законодательства. Все действия по модификации ПО вы выполняете на свой страх и риск.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Техническое примечание:&lt;/strong&gt; Данный патч разработан и протестирован для &lt;strong&gt;Xray-core v26.1.13&lt;/strong&gt;. Стабильность на других версиях не гарантируется. Перед внесением изменений обязательно создайте резервную копию исполняемого файла.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Ограничения:&lt;/strong&gt; В связи с особенностями работы таймеров возможны разрывы соединений в чувствительных к задержкам приложениях (онлайн-игры, VoIP).&lt;/p&gt;</description></item></channel></rss>
