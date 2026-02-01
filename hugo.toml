@@ -17,6 +17,7 @@ enableGitInfo = true
   centerTheme = true
   defaultTheme = "dark"
   env = "production"
+  hidePostMeta = true
 
 [menu]
   [[menu.main]]
