@@ -1,6 +1,6 @@
 baseURL = "https://t1elx.pw/"
 languageCode = "ru"
-title = "t1elx / offensive notes"
+title = "t1elx | Offensive Notes"
 theme = "terminal"
 
 enableRobotsTXT = true
@@ -44,7 +44,7 @@ enableGitInfo = true
 [languages]
   [languages.ru]
     languageName = "Russian"
-    title = "t1elx"
+    title = "t1elx | Offensive Notes"
 
     [languages.ru.params.logo]
       logoText = "t1elx"
