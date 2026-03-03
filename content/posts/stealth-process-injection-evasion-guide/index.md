@@ -203,4 +203,4 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /target:winexe /win32ico
 ![alt text](image-3.png)
 Получен файл `Invoice.exe`, который успешно проходит статический анализ Defender, расшифровывает себя в памяти и инициирует обратное соединение (Reverse Shell) через доверенный процесс.
 
-![alt text](image-4.png)
+![alt text](image-5.png)
