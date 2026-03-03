@@ -166,7 +166,6 @@ namespace ProcInj_PEInj
 
 **Содержимое `AssemblyInfo.cs`:**
 
-C#
 
 ```
 using System.Reflection;
