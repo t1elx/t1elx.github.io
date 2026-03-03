@@ -195,7 +195,7 @@ using System.Reflection;
 **Команда компиляции:**
 
 ```
-C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /target:winexe /win32icon:document.ico /out:Invoice.exe Solution.cs AssemblyInfo.cs
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /target:winexe /win32icon:document.ico /out:Invoice.exe FinalPayload.cs AssemblyInfo.cs
 ```
 
 ### Результат
